@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Address_Shipping.init({
-    id_user: DataTypes.UUIDV4,
+    id_user: DataTypes.UUID,
     province: DataTypes.STRING,
     city: DataTypes.STRING,
     district: DataTypes.STRING,

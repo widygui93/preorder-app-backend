@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       id_user: {
-        type: Sequelize.UUIDV4
+        type: Sequelize.UUID
       },
       province: {
         type: Sequelize.STRING
