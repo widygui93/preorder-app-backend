@@ -41,5 +41,6 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 db.petrol = require('./petrol')(sequelize, Sequelize.DataTypes);
 db.user = require('./user')(sequelize, Sequelize.DataTypes);
+db.address_shipping = require('./address_shipping')(sequelize, Sequelize.DataTypes);
 
 module.exports = db;
