@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const db = require('../models');
 const User = db.user;
+const Address_shipping = db.address_shipping;
 
 // handle errors
 const handleErrors = (err) => {
@@ -42,7 +43,23 @@ const isNotMatch = (password, confirmPassword) => {
 
 // module.
 exports.signup_post = async (req, res) => {
-    const { name, email, password, confirmPassword } = req.body;
+    const transaction = await db.sequelize.transaction();
+
+    const { 
+        name, 
+        email, 
+        password, 
+        confirmPassword,
+        province,
+        city,
+        district,
+        village,
+        code_post,
+        detail_address,
+        nickname_address,
+        latitude,
+        longitude
+    } = req.body;
 
     try {
         if( isNotMatch(password, confirmPassword) ) {
@@ -53,7 +70,9 @@ exports.signup_post = async (req, res) => {
             });
         } 
         else {
-            const user = await User.create({ name, email, password });
+            const user = await User.create({ name, email, password }, { transaction });
+            const address_shipping = await Address_shipping.create({ id_user: user.id, province, city, province, district, village, code_post, detail_address, nickname_address, latitude, longitude}, { transaction });
+            await transaction.commit();
             const token = createToken(user.id);
             res.cookie("jwt", token, { 
                     httpOnly: true, 
@@ -63,6 +82,7 @@ exports.signup_post = async (req, res) => {
             res.status(201).json({ user: user.id });
         }
     } catch (error) {
+        await transaction.rollback();
         const errors = handleErrors(error);
         res.status(400).json({errors});
     }
