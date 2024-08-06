@@ -79,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: true,
         notEmpty: true,
-        is: /^[a-zA-Z .,]*$/,
+        is: /^[a-zA-Z0-9 .,]*$/,
         len: [5,35]
       }
     },
@@ -90,7 +90,7 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true,
         notEmpty: true,
         is: /^[a-zA-Z .,]*$/,
-        len: [5,10]
+        len: [4,10]
       }
     },
     latitude: {
@@ -99,7 +99,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: true,
         notEmpty: true,
-        is: /^[0-9 .,]*$/,
+        is: /^[0-9 .,-]*$/,
         len: [5,24]
       }
     },
@@ -109,7 +109,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: true,
         notEmpty: true,
-        is: /^[0-9 .,]*$/,
+        is: /^[0-9 .,-]*$/,
         len: [5,24]
       }
     }
